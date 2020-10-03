@@ -38,7 +38,7 @@ namespace Scheduling.Data.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
+              //  optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
             }
         }
 
@@ -106,12 +106,12 @@ namespace Scheduling.Data.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.ExamCourse)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK__ExamCours__Cours__2E1BDC42");
+                    .HasConstraintName("FK__ExamCours__Cours__5DCAEF64");
 
                 entity.HasOne(d => d.Exam)
                     .WithMany(p => p.ExamCourse)
                     .HasForeignKey(d => d.ExamId)
-                    .HasConstraintName("FK__ExamCours__ExamI__2F10007B");
+                    .HasConstraintName("FK__ExamCours__ExamI__5EBF139D");
             });
 
             modelBuilder.Entity<ExamGroup>(entity =>

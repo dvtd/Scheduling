@@ -4,28 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Scheduling.Bussiness.Service.SemesterService;
+using Scheduling.Bussiness.Service.ExamCourseService;
+using Scheduling.Bussiness.Service.ExamService;
 using Scheduling.Data.Dtos;
-using Scheduling.Data.Dtos.Semester;
+using Scheduling.Data.Dtos.Course;
+using Scheduling.Data.Dtos.Exam;
 
 namespace SchedulingProject.Controller
 {
-    [Route("api/v1/semester")]
+    [Route("api/v1/exam")]
     [ApiController]
-    public class SemesterController : ControllerBase
+    public class ExamController : ControllerBase
     {
-        private readonly ISemesterService _semesterService;
+        private readonly IExamService _examService;
 
-        public SemesterController(ISemesterService semesterService)
+        public ExamController(IExamService examService)
         {
-            _semesterService = semesterService;
+            _examService = examService;
         }
+
 
         #region CRUD
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PagingRequestParam param)
         {
-            var result = await _semesterService.GetAsync(pageIndex: param.PageIndex, pageSize: param.PageSize);
+            var result = await _examService.GetAsync(pageIndex: param.PageIndex, pageSize: param.PageSize);
             if (result == null)
             {
                 return NotFound();
@@ -36,7 +39,7 @@ namespace SchedulingProject.Controller
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var result = await _semesterService.GetByIdAsync(id);
+            var result = await _examService.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -45,9 +48,9 @@ namespace SchedulingProject.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] SemesterDto dto)
+        public async Task<IActionResult> Insert([FromBody] ExamDto dto)
         {
-            var result = await _semesterService.CreateAsync(dto);
+            var result = await _examService.CreateAsync(dto);
             if (result == null)
             {
                 return NotFound();
@@ -56,9 +59,9 @@ namespace SchedulingProject.Controller
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] SemesterDto dto)
+        public async Task<IActionResult> Update([FromBody] ExamDto dto)
         {
-            var result = await _semesterService.UpdateAsync(dto);
+            var result = await _examService.UpdateAsync(dto);
             if (result == null)
             {
                 return NotFound();
@@ -66,13 +69,19 @@ namespace SchedulingProject.Controller
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        [HttpPut("status")]
+        public async Task<IActionResult> Delete([FromBody] ExamDto dto)
         {
-            var result = await _semesterService.DeleteAsync(id);
+            // chang status of dto to delete status
+            dto.Status = 2;
+            // update to table
+            var result = await _examService.UpdateAsync(dto);
+            if (result == null)
+            {
+                return NotFound();
+            }
             return Ok(result);
         }
         #endregion
-
     }
 }
