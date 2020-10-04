@@ -41,6 +41,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[1.17.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -179,6 +185,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[1.17.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.8, )"
@@ -206,6 +216,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.8, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

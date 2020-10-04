@@ -32,6 +32,8 @@ namespace Scheduling.Data.UnitOfWork
 
         public IGenericRepository<ExamGroup> ExamGroupRepository { get; set; }
 
+        public IGenericRepository<Employee> EmployeeRepository { get; set; }
+
         private void InitRepository()
         {
             SemesterRepository = new GenericRepository<Semester>(_context);
@@ -41,6 +43,7 @@ namespace Scheduling.Data.UnitOfWork
             ExamRepository = new GenericRepository<Exam>(_context);
             ExamCourseRepository = new GenericRepository<ExamCourse>(_context);
             ExamGroupRepository = new GenericRepository<ExamGroup>(_context);
+            EmployeeRepository = new GenericRepository<Employee>(_context);
         }
 
         public async Task<int> SaveAsync()

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Scheduling.Data\Scheduling.Data.csproj" />
   </ItemGroup>
 

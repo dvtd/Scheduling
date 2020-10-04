@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using Scheduling.Data.Dtos.Exam.ExamCourse;
 using Scheduling.Data.Dtos.ExamGroup;
+using Scheduling.Data.Dtos.Role;
 
 namespace Scheduling.Data.AutoMapper
 {
@@ -18,6 +19,9 @@ namespace Scheduling.Data.AutoMapper
         {
             CreateMap<Employee, EmployeeDto>();
             CreateMap<EmployeeDto, Employee>();
+
+            CreateMap<Role, RoleDto>();
+            CreateMap<RoleDto, Role>();
 
             CreateMap<Course, CourseDto>();
             CreateMap<CourseDto, Course>();
@@ -33,6 +37,8 @@ namespace Scheduling.Data.AutoMapper
 
             CreateMap<ExamGroup, ExamGroupDto>();
             CreateMap<ExamGroupDto, ExamGroup>();
+
+
 
         }
     }
