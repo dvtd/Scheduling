@@ -17,6 +17,7 @@ namespace Scheduling.Data.UnitOfWork
         IGenericRepository<ExamGroup> ExamGroupRepository { get; }
         IGenericRepository<Exam> ExamRepository { get; }
         IGenericRepository<Employee> EmployeeRepository { get; }
+        IGenericRepository<EmployeeDevice> DeviceRepository { get; }
 
 
         Task<int> SaveAsync();
