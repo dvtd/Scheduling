@@ -21,6 +21,7 @@ namespace SchedulingProject.Controller
             _semesterService = semesterService;
         }
 
+        #region CRUD
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PagingRequestParam param)
         {
@@ -71,7 +72,7 @@ namespace SchedulingProject.Controller
             var result = await _semesterService.DeleteAsync(id);
             return Ok(result);
         }
+        #endregion
 
-        
     }
 }

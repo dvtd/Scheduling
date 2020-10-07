@@ -10,6 +10,15 @@ namespace Scheduling.Data.UnitOfWork
     public interface IUnitOfWork
     {
         IGenericRepository<Semester> SemesterRepository { get; }
+        IGenericRepository<Major> MajorRepository { get; }
+        IGenericRepository<Subject> SubjectRepository { get; }
+        IGenericRepository<Course> CourseRepository { get; }
+        IGenericRepository<ExamCourse> ExamCourseRepository { get; }
+        IGenericRepository<ExamGroup> ExamGroupRepository { get; }
+        IGenericRepository<Exam> ExamRepository { get; }
+        IGenericRepository<Employee> EmployeeRepository { get; }
+        IGenericRepository<EmployeeDevice> DeviceRepository { get; }
+
 
         Task<int> SaveAsync();
     }

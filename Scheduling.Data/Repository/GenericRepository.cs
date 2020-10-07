@@ -76,5 +76,20 @@ namespace Scheduling.Data.Repository
             _dbSet.Attach(entity);
             _dbSet.Remove(entity);
         }
+
+        public Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> filter = null, string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            foreach (var includeProperty in includeProperties.Split
+               (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+            return query.FirstOrDefaultAsync();
+        }
     }
 }

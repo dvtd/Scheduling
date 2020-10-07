@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scheduling.Data.Dtos.Semester.Course
+namespace Scheduling.Data.Dtos.Course
 {
     public class CourseDto : BaseDto
     {

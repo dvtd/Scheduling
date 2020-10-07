@@ -71,6 +71,15 @@ D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Swashbuckle.As
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\FirebaseAdmin.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Api.Gax.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Api.Gax.Rest.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Apis.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Apis.Auth.PlatformServices.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Apis.Auth.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Google.Apis.Core.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\System.Interactive.Async.dll
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.csproj.CoreCompileInputs.cache
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cs
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cache
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\service-account.json

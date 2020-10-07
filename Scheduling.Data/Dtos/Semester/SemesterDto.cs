@@ -1,6 +1,5 @@
 ﻿using Scheduling.Data.Dtos.Employee;
-using Scheduling.Data.Dtos.Semester.Course;
-using Scheduling.Data.Dtos.Semester.Exan;
+using Scheduling.Data.Dtos.Course;
 using System;
 using System.Collections.Generic;
 using System.Text;
