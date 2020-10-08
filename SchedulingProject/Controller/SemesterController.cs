@@ -74,5 +74,16 @@ namespace SchedulingProject.Controller
         }
         #endregion
 
+        [HttpGet("{id}/exams")]
+        public async Task<IActionResult> GetExamsById([FromRoute] int id)
+        {
+            var result = await _semesterService.GetAsync(filter: el => el.Id == id, includeProperties: "Exam");
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
     }
 }

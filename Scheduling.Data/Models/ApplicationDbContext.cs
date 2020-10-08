@@ -38,7 +38,7 @@ namespace Scheduling.Data.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              //  optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
+             //   optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
             }
         }
 

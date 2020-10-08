@@ -10,6 +10,12 @@ using System.Text;
 using Scheduling.Data.Dtos.Exam.ExamCourse;
 using Scheduling.Data.Dtos.ExamGroup;
 using Scheduling.Data.Dtos.Role;
+using Scheduling.Data.Dtos.Major;
+using Scheduling.Data.Dtos.Major.Subject;
+using Scheduling.Data.Dtos.Register;
+using Scheduling.Data.Dtos.Room;
+using Scheduling.Data.Dtos.ExamSession;
+using Scheduling.Data.Dtos.EmployeeRalate;
 
 namespace Scheduling.Data.AutoMapper
 {
@@ -38,7 +44,23 @@ namespace Scheduling.Data.AutoMapper
             CreateMap<ExamGroup, ExamGroupDto>();
             CreateMap<ExamGroupDto, ExamGroup>();
 
+            CreateMap<Major, MajorDto>();
+            CreateMap<MajorDto, Major>();
 
+            CreateMap<Subject, SubjectDto>();
+            CreateMap<SubjectDto, Subject>();
+
+            CreateMap<Register, RegisterDto>();
+            CreateMap<RegisterDto, Register>();
+
+            CreateMap<Room, RoomDto>();
+            CreateMap<RoomDto, Room>();
+
+            CreateMap<ExamSession, ExamSessionDto>();
+            CreateMap<ExamSessionDto, ExamSession>();
+
+            CreateMap<EmployeeRelated, EmployeeRelatedDto>();
+            CreateMap<EmployeeRelatedDto, EmployeeRelated>();
 
         }
     }

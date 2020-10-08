@@ -75,5 +75,19 @@ namespace SchedulingProject.Controller
         //}
         #endregion
 
+        // Return list exam group in exam so that employee can register the preferable in each exam group
+        [HttpGet("employee-register-group")]
+        public async Task<IActionResult> GetListExamGroupForRegitering([FromQuery] ExamGroupRequestParam param)
+        {
+            var result = await _examGroupService.GetAsync(
+                                        pageIndex: param.PageIndex, 
+                                        pageSize: param.PageSize , 
+                                        filter : el => el.ExamId == param.ExamId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
     }
 }

@@ -6,6 +6,34 @@ namespace Scheduling.Data.Helper
 {
     public class AppConstants
     {
+        public struct ExamSessionStatus
+        {
+            public const int OPENED = 1;
+            public const int CLOSED = 0;
+        }
+        public struct LevelRegistration
+        {
+            public struct Peference
+            {
+                public const int ID = 2;
+                public const string NAME = "Peference";
+            }
+            public struct NotAvailable
+            {
+                public const int ID = 0;
+                public const string NAME = "NotAvailable";
+            }
+            public struct Available
+            {
+                public const int ID = 1;
+                public const string NAME = "Available";
+            }
+            public struct FixByAdmin
+            {
+                public const int ID = 3;
+                public const string NAME = "FixByAdmin";
+            }
+        }
         public struct EmailFormat
         {
             public const string EMAIL_EXTENSION= "fpt.edu.vn";
@@ -39,6 +67,12 @@ namespace Scheduling.Data.Helper
         {
             public const int OVERSEER_1 = 1;
             public const int OVERSEER_2 = 2;
+        }
+
+        public struct RoomType
+        {
+            public const int NORMAL_ROOM = 0;
+            public const int MEETING_ROOM = 1;
         }
     }
 }
