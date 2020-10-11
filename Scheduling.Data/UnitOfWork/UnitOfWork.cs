@@ -44,6 +44,12 @@ namespace Scheduling.Data.UnitOfWork
 
         public IGenericRepository<EmployeeRelated> EmployeeRelatedRepository { get; set; }
 
+        public IGenericRepository<WorkingTimeRequiredDepartment> WorkingTimeRequiredDepartmentRepository { get; set; }
+
+        public IGenericRepository<WorkingTimeRequiredEmployee> WorkingTimeRequiredEmployeeRepository { get; set; }
+
+        public IGenericRepository<Department> DepartmentRepository { get; set; }
+
         private void InitRepository()
         {
             SemesterRepository = new GenericRepository<Semester>(_context);
@@ -59,6 +65,9 @@ namespace Scheduling.Data.UnitOfWork
             RoomRepository = new GenericRepository<Room>(_context);
             ExamSessionRepository = new GenericRepository<ExamSession>(_context);
             EmployeeRelatedRepository = new GenericRepository<EmployeeRelated>(_context);
+            WorkingTimeRequiredDepartmentRepository = new GenericRepository<WorkingTimeRequiredDepartment>(_context);
+            WorkingTimeRequiredEmployeeRepository = new GenericRepository<WorkingTimeRequiredEmployee>(_context);
+            DepartmentRepository = new GenericRepository<Department>(_context);
         }
 
         public async Task<int> SaveAsync()

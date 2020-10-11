@@ -39,6 +39,7 @@ namespace Scheduling.Data.Models
         public string Description { get; set; }
         [Column("RoleID")]
         public int? RoleId { get; set; }
+        public string Photo { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("Employee")]

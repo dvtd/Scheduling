@@ -22,6 +22,9 @@ namespace Scheduling.Data.UnitOfWork
         IGenericRepository<Room> RoomRepository { get; }
         IGenericRepository<ExamSession> ExamSessionRepository { get; }
         IGenericRepository<EmployeeRelated> EmployeeRelatedRepository { get; }
+        IGenericRepository<WorkingTimeRequiredDepartment> WorkingTimeRequiredDepartmentRepository { get; }
+        IGenericRepository<WorkingTimeRequiredEmployee> WorkingTimeRequiredEmployeeRepository { get; }
+        IGenericRepository<Department> DepartmentRepository { get; }
 
         Task<int> SaveAsync();
     }

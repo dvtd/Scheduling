@@ -6,11 +6,16 @@ namespace Scheduling.Data.Helper
 {
     public class AppConstants
     {
-        public struct ExamSessionStatus
+        public struct ExamSession
         {
-            public const int OPENED = 1;
-            public const int CLOSED = 0;
+            public struct Status
+            {
+                public const int OPENED = 1;
+                public const int CLOSED = 0;
+            }
+            public const int NUMBER_OF_STUDENTS = 20;
         }
+        
         public struct LevelRegistration
         {
             public struct Peference

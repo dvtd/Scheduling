@@ -23,7 +23,9 @@ using Scheduling.Bussiness.Service.ExamCourseService;
 using Scheduling.Bussiness.Service.ExamGroupService;
 using Scheduling.Bussiness.Service.ExamService;
 using Scheduling.Bussiness.Service.ExamSessionService;
+using Scheduling.Bussiness.Service.FCM;
 using Scheduling.Bussiness.Service.MajorService;
+using Scheduling.Bussiness.Service.RegisterExamService;
 using Scheduling.Bussiness.Service.RegisterService;
 using Scheduling.Bussiness.Service.SemesterService;
 using Scheduling.Bussiness.Service.SubjectService;
@@ -134,6 +136,8 @@ namespace SchedulingProject
             services.AddScoped<IEmployeeRelatedService, EmployeeRelatedService>();
             services.AddScoped<IExamSessionService, ExamSessionService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IFCMService, FCMService>();
+            services.AddScoped<IRegisterExamService, RegisterExamService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
