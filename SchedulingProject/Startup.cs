@@ -31,6 +31,7 @@ using Scheduling.Bussiness.Service.RegisterService;
 using Scheduling.Bussiness.Service.SchedulingService;
 using Scheduling.Bussiness.Service.SemesterService;
 using Scheduling.Bussiness.Service.SubjectService;
+using Scheduling.Bussiness.Service.WorkingTimeRequiredEmployeeService;
 using Scheduling.Data.Helper;
 using Scheduling.Data.Models;
 using Scheduling.Data.UnitOfWork;
@@ -142,6 +143,7 @@ namespace SchedulingProject
             services.AddScoped<IRegisterExamService, RegisterExamService>();
             services.AddScoped<ISchedulingService, SchedulingService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IWorkingTimeRequiredEmployeeService, WorkingTimeRequiredEmployeeService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

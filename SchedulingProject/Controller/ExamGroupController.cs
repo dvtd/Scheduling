@@ -79,11 +79,12 @@ namespace SchedulingProject.Controller
         [HttpGet("employee-register-group")]
         public async Task<IActionResult> GetListExamGroupForRegitering([FromQuery] ExamGroupRequestParam param)
         {
-            var result = await _examGroupService.GetAsync(
-                                        pageIndex: param.PageIndex,
-                                        pageSize: param.PageSize,
-                                        filter: el => el.ExamId == param.ExamId,
-                                        orderBy: el => el.OrderBy(e => e.ExamDate).ThenBy(e => e.TimeBegin));
+            //var result = await _examGroupService.GetAsync(
+            //                            pageIndex: param.PageIndex,
+            //                            pageSize: param.PageSize,
+            //                            filter: el => el.ExamId == param.ExamId,
+            //                            orderBy: el => el.OrderBy(e => e.ExamDate).ThenBy(e => e.TimeBegin));
+            var result = await _examGroupService.GetListExamGroupForRegistering(param.ExamId);
             if (result == null)
             {
                 return NotFound();

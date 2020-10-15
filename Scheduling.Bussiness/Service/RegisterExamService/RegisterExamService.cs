@@ -56,7 +56,7 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                     .Get(filter: el => el.ExamGroupId == subjectInExam.ExamGroupId))
                     .GroupBy(el => el.ExamGroupId);
 
-                List<int?> listExistRoomInSession = null;
+                List<int?> listExistRoomInSession = new List<int?>();
 
                 if (listRoomInSession != null)
                 {
@@ -87,54 +87,56 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                         Status = AppConstants.ExamSession.Status.OPENED
                     });
                 }
+                await _uow.SaveAsync();
             }
+
             // Get all the time in exam
             double allTimeInExam = 0;
-            if (await _uow.SaveAsync() > 0)
+            // Get All the time duration in exam
+            IEnumerable<ExamGroup> listExamGroup = await _uow.ExamGroupRepository.Get(filter: el => el.ExamId == examId, includeProperties: "ExamSession");
+            foreach (ExamGroup dto in listExamGroup)
             {
-                // Get All the time duration in exam
-                IEnumerable<ExamGroup> listExamGroup = await _uow.ExamGroupRepository.Get(filter: el => el.ExamId == examId, includeProperties: "ExamSession");
-                foreach (ExamGroup dto in listExamGroup)
+                if (dto.ExamSession != null || dto.ExamSession.Count != 0)
                 {
                     var duration = (dto.TimeEnd - dto.TimeBegin).TotalHours;
                     var numberOfSessionInGroup = dto.ExamSession.Count();
                     allTimeInExam += duration * numberOfSessionInGroup;
                 }
-                // Get all list department and set constraint 
-                IEnumerable<Department> listDepartment = await _uow.DepartmentRepository.Get();
-                double averageTime = allTimeInExam / listDepartment.Count();
-                // define minHour and maxHour for each Department
-                int minH = Convert.ToInt32(Math.Floor(averageTime));
-                int maxH = Convert.ToInt32(Math.Ceiling(averageTime));
-                foreach (Department dto in listDepartment)
+            }
+            // Get all list department and set constraint 
+            IEnumerable<Department> listDepartment = await _uow.DepartmentRepository.Get();
+            double averageTime = allTimeInExam / listDepartment.Count();
+            // define minHour and maxHour for each Department
+            int minH = Convert.ToInt32(Math.Floor(averageTime));
+            int maxH = Convert.ToInt32(Math.Ceiling(averageTime));
+            foreach (Department dto in listDepartment)
+            {
+                _uow.WorkingTimeRequiredDepartmentRepository.Add(new WorkingTimeRequiredDepartment()
                 {
-                    _uow.WorkingTimeRequiredDepartmentRepository.Add(new WorkingTimeRequiredDepartment()
-                    {
-                        DepartmentId = dto.Id,
-                        ExamId = examId,
-                        MinHour = minH,
-                        MaxHour = maxH,
-                        CreateTime = DateTime.UtcNow,
-                        CreatePerson = empId.ToString(),
-                    });
-                }
-                //Get all list employee and set constraint
-                IEnumerable<Employee> listEmployee = await _uow.EmployeeRepository.Get(filter: el => el.RoleId != AppConstants.Roles.Admin.ID, includeProperties: "Department");
-                // define minHour and maxHour for each employee in Department
-                int minHour = minH / listEmployee.GroupBy(el => el.DepartmentId).Count();
-                int maxHour = maxH / listEmployee.GroupBy(el => el.DepartmentId).Count();
-                foreach (Employee dto in listEmployee)
+                    DepartmentId = dto.Id,
+                    ExamId = examId,
+                    MinHour = minH,
+                    MaxHour = maxH,
+                    CreateTime = DateTime.UtcNow,
+                    CreatePerson = empId.ToString(),
+                });
+            }
+            //Get all list employee and set constraint
+            IEnumerable<Employee> listEmployee = await _uow.EmployeeRepository.Get(filter: el => el.RoleId != AppConstants.Roles.Admin.ID, includeProperties: "Department");
+            // define minHour and maxHour for each employee in Department
+            int minHour = minH / listEmployee.GroupBy(el => el.DepartmentId).Count() + 2;
+            int maxHour = maxH / listEmployee.GroupBy(el => el.DepartmentId).Count() + 2;
+            foreach (Employee dto in listEmployee)
+            {
+                _uow.WorkingTimeRequiredEmployeeRepository.Add(new WorkingTimeRequiredEmployee()
                 {
-                    _uow.WorkingTimeRequiredEmployeeRepository.Add(new WorkingTimeRequiredEmployee()
-                    {
-                        EmpId = dto.Id,
-                        ExamId = examId,
-                        MinHour = minHour,
-                        MaxHour = maxHour,
-                        CreateTime = DateTime.UtcNow,
-                        CreatePerson = empId.ToString(),
-                    });
-                }
+                    EmpId = dto.Id,
+                    ExamId = examId,
+                    MinHour = minHour,
+                    MaxHour = maxHour,
+                    CreateTime = DateTime.UtcNow,
+                    CreatePerson = empId.ToString(),
+                });
             }
             return await _uow.SaveAsync() > 0;
         }

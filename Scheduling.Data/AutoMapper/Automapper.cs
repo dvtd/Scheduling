@@ -16,6 +16,7 @@ using Scheduling.Data.Dtos.Register;
 using Scheduling.Data.Dtos.Room;
 using Scheduling.Data.Dtos.ExamSession;
 using Scheduling.Data.Dtos.EmployeeRalate;
+using Scheduling.Data.Dtos.WorkingTimeRequiredEmployee;
 
 namespace Scheduling.Data.AutoMapper
 {
@@ -61,6 +62,9 @@ namespace Scheduling.Data.AutoMapper
 
             CreateMap<EmployeeRelated, EmployeeRelatedDto>();
             CreateMap<EmployeeRelatedDto, EmployeeRelated>();
+
+            CreateMap<WorkingTimeRequiredEmployee, WorkingTimeRequiredEmployeeDto>();
+            CreateMap<WorkingTimeRequiredEmployeeDto, WorkingTimeRequiredEmployee>();
 
         }
     }

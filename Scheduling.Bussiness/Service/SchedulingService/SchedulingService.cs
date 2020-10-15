@@ -37,7 +37,7 @@ namespace Scheduling.Bussiness.Service.SchedulingService
             //int numShift = listExamGroup.Count();
 
             // Get all exam session in Exam
-            var listExamSessionInExam = (await _uow.ExamSessionRepository
+            IEnumerable<ExamSession> listExamSessionInExam = (await _uow.ExamSessionRepository
                 .Get(filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup"));
 
             // Get all exam group which is in Exam Session Of Exam
@@ -62,7 +62,7 @@ namespace Scheduling.Bussiness.Service.SchedulingService
 
             // Get All register in exam 
             IEnumerable<Register> listRegister = await _uow.RegisterRepository.Get(
-                filter: el => el.ExamGroup.ExamId == examId);
+                filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup");
 
 
             for (int i = 0; i < listEmp.Count(); i++)
@@ -74,35 +74,39 @@ namespace Scheduling.Bussiness.Service.SchedulingService
                     .ThenBy(el => el.ExamGroup.TimeBegin);
 
                 // Change Perfer to 1
-                IEnumerable<Register> temp = listGroupByEmp;
                 // Define array of available
                 List<int> arrAvailable = new List<int>();
-                foreach (Register reg in temp)
+                foreach (Register reg in listGroupByEmp)
                 {
                     if (reg.Value == AppConstants.LevelRegistration.Peference.ID)
                     {
-                        reg.Value = AppConstants.LevelRegistration.Available.ID;
+                        arrAvailable.Add(AppConstants.LevelRegistration.Available.ID);
                     }
-                    arrAvailable.Add((int)reg.Value);
+                    else
+                    {
+                        arrAvailable.Add((int)reg.Value);
+                    }
                 }
                 availability[i] = arrAvailable.ToArray();
 
 
                 // Change Perfer to 1 and Available to 0
-                IEnumerable<Register> tempPrefer = listGroupByEmp;
                 // Define array of available
                 List<int> arrPreference = new List<int>();
-                foreach (Register reg in tempPrefer)
+                foreach (Register reg in listGroupByEmp)
                 {
                     if (reg.Value == AppConstants.LevelRegistration.Peference.ID)
                     {
-                        reg.Value = AppConstants.LevelRegistration.Available.ID;
+                        arrPreference.Add(1);
                     }
-                    if (reg.Value == AppConstants.LevelRegistration.Available.ID)
+                    else if (reg.Value == AppConstants.LevelRegistration.Available.ID)
                     {
-                        reg.Value = 0;
+                        arrPreference.Add(0);
                     }
-                    arrPreference.Add((int)reg.Value);
+                    else
+                    {
+                        arrPreference.Add((int)reg.Value);
+                    }
                 }
                 preference[i] = arrPreference.ToArray();
 
@@ -153,7 +157,7 @@ namespace Scheduling.Bussiness.Service.SchedulingService
                 // For each emp in list Emp
                 for (int i = 0; i < listEmp.Count(); i++)
                 {
-                    // Get list of Exam Group that is matched with 1(Asigned)
+                    // Get list of Exam Group that is matched with Each Emp
                     List<int> list = result[i].ToList();
                     for (int j = 0; j < list.Count(); j++)
                     {
@@ -161,24 +165,27 @@ namespace Scheduling.Bussiness.Service.SchedulingService
                         if (list.ElementAt(j) == 1)
                         {
                             // Get list exam session in Exam Group
-                            var listExamSession = listExamSessionInExam
+                            var examSession = listExamSessionInExam
                                 .Where(el => el.ExamGroupId == listExamGroup.ElementAt(j).Key)
-                                .OrderBy(el => el.Id);
+                                .OrderBy(el => el.Id).FirstOrDefault();
 
-                            foreach (var examSession in listExamSession)
+                            _uow.EmployeeRelatedRepository.Add(new EmployeeRelated()
                             {
-                                _uow.EmployeeRelatedRepository.Add(new EmployeeRelated()
-                                {
-                                    EmpId = listEmp.ElementAt(i).Id,
-                                    EmployeeFullname = listEmp.ElementAt(i).Fullname,
-                                    ExamSessionId = examSession.Id,
-                                    CreatePerson = adminId.ToString(),
-                                    CreateTime = DateTime.UtcNow
-                                });
-                            }
+                                EmpId = listEmp.ElementAt(i).Id,
+                                EmployeeFullname = listEmp.ElementAt(i).Fullname,
+                                ExamSessionId = examSession.Id,
+                                CreatePerson = adminId.ToString(),
+                                CreateTime = DateTime.UtcNow
+                            });
+
+                            listExamSessionInExam = listExamSessionInExam.Where(el => el.Id != examSession.Id);
                         }
                     }
                 }
+            }
+            else
+            {
+                throw new Exception("Can not scheduling");
             }
             return await _uow.SaveAsync() > 0;
         }
