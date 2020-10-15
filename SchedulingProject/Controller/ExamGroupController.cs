@@ -80,9 +80,10 @@ namespace SchedulingProject.Controller
         public async Task<IActionResult> GetListExamGroupForRegitering([FromQuery] ExamGroupRequestParam param)
         {
             var result = await _examGroupService.GetAsync(
-                                        pageIndex: param.PageIndex, 
-                                        pageSize: param.PageSize , 
-                                        filter : el => el.ExamId == param.ExamId);
+                                        pageIndex: param.PageIndex,
+                                        pageSize: param.PageSize,
+                                        filter: el => el.ExamId == param.ExamId,
+                                        orderBy: el => el.OrderBy(e => e.ExamDate).ThenBy(e => e.TimeBegin));
             if (result == null)
             {
                 return NotFound();

@@ -26,19 +26,8 @@ namespace SchedulingProject.Controller
         public async Task<IActionResult> Get([FromQuery] RegisterRequestParam param)
         {
             var result = await _registerService.GetAsync(pageIndex: param.PageIndex, pageSize: param.PageSize,
-                filter: el => el.EmpId == param.EmpId && el.ExamGroupId == param.ExamGroupId
+                filter: el => el.EmpId == param.EmpId && el.ExamGroupId == param.ExamGroupId && el.ExamGroup.ExamId == param.ExamId
                 );
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
-        {
-            var result = await _registerService.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -75,5 +64,23 @@ namespace SchedulingProject.Controller
             return Ok(result);
         }
         #endregion
+
+        [HttpPost("employee")]
+        public async Task<IActionResult> GetListRegister([FromBody] RegisterDto dto)
+        {
+            var result = await _registerService.GetListRegisterByEmployee(dto);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("employee/register-exam-group")]
+        public async Task<IActionResult> RegisterExamGroup([FromBody] List<RegisterDto> listRegister)
+        {
+            var result = await _registerService.RegisterExamGroup(listRegister);
+            return Ok(result);
+        }
     }
 }

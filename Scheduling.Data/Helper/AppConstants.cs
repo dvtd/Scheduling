@@ -79,5 +79,10 @@ namespace Scheduling.Data.Helper
             public const int NORMAL_ROOM = 0;
             public const int MEETING_ROOM = 1;
         }
+
+        public struct ExamGroup
+        {
+            public const int DURATION_HOUR_IN_EXAM_GROUP = 1;
+        }
     }
 }

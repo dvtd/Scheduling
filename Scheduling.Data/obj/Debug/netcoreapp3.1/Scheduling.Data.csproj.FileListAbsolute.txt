@@ -1,6 +1,5 @@
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.AssemblyInfoInputs.cache
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.AssemblyInfo.cs
-D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.csproj.CoreCompileInputs.cache
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.csprojAssemblyReference.cache
 D:\SWD391\FPTScheduling\Scheduling.Data\bin\Debug\netcoreapp3.1\Scheduling.Data.deps.json
 D:\SWD391\FPTScheduling\Scheduling.Data\bin\Debug\netcoreapp3.1\Scheduling.Data.runtimeconfig.json
@@ -10,3 +9,4 @@ D:\SWD391\FPTScheduling\Scheduling.Data\bin\Debug\netcoreapp3.1\Scheduling.Data.
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.dll
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.pdb
 D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.genruntimeconfig.cache
+D:\SWD391\FPTScheduling\Scheduling.Data\obj\Debug\netcoreapp3.1\Scheduling.Data.csproj.CoreCompileInputs.cache

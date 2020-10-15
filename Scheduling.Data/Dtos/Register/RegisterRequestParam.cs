@@ -9,5 +9,7 @@ namespace Scheduling.Data.Dtos.Register
         public int Id { get; set; }
         public int EmpId { get; set; }
         public int ExamGroupId { get; set; }
+        public int ExamId { get; set; }
+        public int Value { get; set; }
     }
 }

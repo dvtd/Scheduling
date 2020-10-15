@@ -40,6 +40,7 @@ namespace Scheduling.Data.Models
         [Column("RoleID")]
         public int? RoleId { get; set; }
         public string Photo { get; set; }
+        public int? DelFlg { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("Employee")]

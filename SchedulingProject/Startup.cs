@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using Scheduling.Bussiness.Service.AuthService;
 using Scheduling.Bussiness.Service.CourseService;
 using Scheduling.Bussiness.Service.EmployeeRelatedService;
+using Scheduling.Bussiness.Service.EmployeeService;
 using Scheduling.Bussiness.Service.ExamCourseService;
 using Scheduling.Bussiness.Service.ExamGroupService;
 using Scheduling.Bussiness.Service.ExamService;
@@ -27,6 +28,7 @@ using Scheduling.Bussiness.Service.FCM;
 using Scheduling.Bussiness.Service.MajorService;
 using Scheduling.Bussiness.Service.RegisterExamService;
 using Scheduling.Bussiness.Service.RegisterService;
+using Scheduling.Bussiness.Service.SchedulingService;
 using Scheduling.Bussiness.Service.SemesterService;
 using Scheduling.Bussiness.Service.SubjectService;
 using Scheduling.Data.Helper;
@@ -138,6 +140,8 @@ namespace SchedulingProject
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IFCMService, FCMService>();
             services.AddScoped<IRegisterExamService, RegisterExamService>();
+            services.AddScoped<ISchedulingService, SchedulingService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

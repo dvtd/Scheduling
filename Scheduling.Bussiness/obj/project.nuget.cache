@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qrELak9CqdGbJFhmbyWn52nhfC2/1LrsYWFRjGvpQvr2jQ/6JbMLjYvAhftVcfbOhQTwvdxtCwrx3RngMRRvoQ==",
+  "dgSpecHash": "wU1PhHAAYx8j5vlzXR2XZ/jbHW6E3rjwYC5hkU83B1rMHrrMyS93rmbZW41c6fI85zR+wvRTu1U6xhvEv/kIiw==",
   "success": true,
   "projectFilePath": "D:\\SWD391\\FPTScheduling\\Scheduling.Bussiness\\Scheduling.Bussiness.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,11 @@
     "C:\\Users\\WIN\\.nuget\\packages\\google.apis\\1.40.0\\google.apis.1.40.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\google.apis.auth\\1.40.0\\google.apis.auth.1.40.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\google.apis.core\\1.40.0\\google.apis.core.1.40.0.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\google.ortools\\7.8.7959\\google.ortools.7.8.7959.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\google.ortools.runtime.linux-x64\\7.8.7959\\google.ortools.runtime.linux-x64.7.8.7959.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\google.ortools.runtime.osx-x64\\7.8.7959\\google.ortools.runtime.osx-x64.7.8.7959.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\google.ortools.runtime.win-x64\\7.8.7959\\google.ortools.runtime.win-x64.7.8.7959.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\google.protobuf\\3.12.2\\google.protobuf.3.12.2.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -69,6 +74,7 @@
     "C:\\Users\\WIN\\.nuget\\packages\\system.io.filesystem\\4.3.0\\system.io.filesystem.4.3.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.io.filesystem.primitives\\4.3.0\\system.io.filesystem.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.linq\\4.3.0\\system.linq.4.3.0.nupkg.sha512",
+    "C:\\Users\\WIN\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.net.nameresolution\\4.3.0\\system.net.nameresolution.4.3.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.net.primitives\\4.3.0\\system.net.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
@@ -108,5 +114,16 @@
     "C:\\Users\\WIN\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\WIN\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Google.OrTools.runtime.win-x64 7.8.7959' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Google.OrTools.runtime.win-x64",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

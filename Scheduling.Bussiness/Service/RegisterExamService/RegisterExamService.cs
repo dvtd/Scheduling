@@ -23,6 +23,10 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
         }
         public async Task<bool> RegisterExam(int sesmesterId, int examId, List<SubjectInExamRequestParam> listSubjectInExam, int empId)
         {
+
+            // Get Valid Room 
+            IEnumerable<Room> listRoom = await _uow.RoomRepository.Get();
+
             foreach (SubjectInExamRequestParam subjectInExam in listSubjectInExam)
             {
                 // Get all course in subject
@@ -47,16 +51,27 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                 // Count number of students in each Course and divide by 20 to get number of sessions in exam
                 int numberOfSessionInExam = Convert.ToInt32(Math.Ceiling((double)numOfStudents / AppConstants.ExamSession.NUMBER_OF_STUDENTS));
 
+                // Check if Room is exist in Exam Group 
+                var listRoomInSession = (await _uow.ExamSessionRepository
+                    .Get(filter: el => el.ExamGroupId == subjectInExam.ExamGroupId))
+                    .GroupBy(el => el.ExamGroupId);
 
-                // Get Valid Room 
-                IEnumerable<Room> listRoom = await _uow.RoomRepository.Get(pageIndex: 1, pageSize: numberOfSessionInExam);
+                List<int?> listExistRoomInSession = null;
 
-                IEnumerable<ExamSession> listExamSession = await _uow.ExamSessionRepository.Get();
-                int examSessionId = 0;
-                if (listExamSession != null)
+                if (listRoomInSession != null)
                 {
-                    examSessionId = listExamSession.Last().Id;
+                    foreach (var el in listRoomInSession)
+                    {
+                        foreach (var room in el)
+                        {
+                            listExistRoomInSession.Add(room.RoomId);
+                        }
+                    }
                 }
+                // Get List Room valid then insert into Exam Session
+                IEnumerable<Room> listValidRoom = (from room in listRoom
+                                                   where !listExistRoomInSession.Contains(room.Id)
+                                                   select room).ToList();
 
                 // insert into ExamSession table
                 // MISSING ALGORITHM to mixing StudentGroup to insert into ExamSession
@@ -64,8 +79,8 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                 {
                     _uow.ExamSessionRepository.Add(new ExamSession()
                     {
-                        RoomId = listRoom.ElementAt(i).Id,
-                        RoomName = listRoom.ElementAt(i).RoomName,
+                        RoomId = listValidRoom.ElementAt(i).Id,
+                        RoomName = listValidRoom.ElementAt(i).RoomName,
                         ExamGroupId = subjectInExam.ExamGroupId,
                         CreateTime = DateTime.UtcNow,
                         CreatePerson = empId.ToString(),
@@ -120,10 +135,6 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                         CreatePerson = empId.ToString(),
                     });
                 }
-            }
-            else
-            {
-                throw new Exception("Insert fail");
             }
             return await _uow.SaveAsync() > 0;
         }
