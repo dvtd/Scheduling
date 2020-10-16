@@ -41,7 +41,7 @@ namespace Scheduling.Bussiness.Service.SchedulingService
                 .Get(filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup"));
 
             // Get all exam group which is in Exam Session Of Exam
-            var listExamGroup = listExamSessionInExam.GroupBy(el => el.ExamGroupId);
+            var listExamGroup = listExamSessionInExam.GroupBy(el => el.ExamGroupId).OrderBy(el => el.Key);
 
             // Get Number of Shift in Exam
             int numShift = listExamGroup.Count();
@@ -64,51 +64,57 @@ namespace Scheduling.Bussiness.Service.SchedulingService
             IEnumerable<Register> listRegister = await _uow.RegisterRepository.Get(
                 filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup");
 
-
             for (int i = 0; i < listEmp.Count(); i++)
             {
                 // Get register by employee
                 IEnumerable<Register> listGroupByEmp = listRegister
-                    .Where(el => el.EmpId == listEmp.ElementAt(i).Id)
-                    .OrderBy(el => el.ExamGroup.ExamDate)
-                    .ThenBy(el => el.ExamGroup.TimeBegin);
+                    .Where(el => el.EmpId == listEmp.ElementAt(i).Id);
 
                 // Change Perfer to 1
                 // Define array of available
-                List<int> arrAvailable = new List<int>();
+                int[] arrAvailable = new int[numShift];
+                for (int s = 0; s < numShift; s++)
+                {
+                    arrAvailable[s] = 0;
+                }
                 foreach (Register reg in listGroupByEmp)
                 {
+                    // find the index of exam group and add to array with exactly positon
+                    int index = listExamGroup.ToList().FindIndex(el => reg.ExamGroupId == el.Key);
                     if (reg.Value == AppConstants.LevelRegistration.Peference.ID)
                     {
-                        arrAvailable.Add(AppConstants.LevelRegistration.Available.ID);
+                        arrAvailable[index] = AppConstants.LevelRegistration.Available.ID;
                     }
-                    else
+                    else if (reg.Value == AppConstants.LevelRegistration.Available.ID)
                     {
-                        arrAvailable.Add((int)reg.Value);
+                        arrAvailable[index] = AppConstants.LevelRegistration.Available.ID;
                     }
                 }
-                availability[i] = arrAvailable.ToArray();
+                availability[i] = arrAvailable;
 
 
                 // Change Perfer to 1 and Available to 0
                 // Define array of available
-                List<int> arrPreference = new List<int>();
+                int[] arrPreference = new int[numShift];
+
+                for (int s = 0; s < numShift; s++)
+                {
+                    arrPreference[s] = 0;
+                }
                 foreach (Register reg in listGroupByEmp)
                 {
+                    // find the index of exam group and add to array with exactly positon
+                    int index = listExamGroup.ToList().FindIndex(el => reg.ExamGroupId == el.Key);
                     if (reg.Value == AppConstants.LevelRegistration.Peference.ID)
                     {
-                        arrPreference.Add(1);
+                        arrPreference[index] = AppConstants.LevelRegistration.Available.ID;
                     }
                     else if (reg.Value == AppConstants.LevelRegistration.Available.ID)
                     {
-                        arrPreference.Add(0);
-                    }
-                    else
-                    {
-                        arrPreference.Add((int)reg.Value);
+                        arrPreference[index] = 0;
                     }
                 }
-                preference[i] = arrPreference.ToArray();
+                preference[i] = arrPreference;
 
                 // Range Shift For Each Emp
                 WorkingTimeRequiredEmployee constrainstEmp = (await _uow.WorkingTimeRequiredEmployeeRepository
@@ -117,7 +123,7 @@ namespace Scheduling.Bussiness.Service.SchedulingService
 
                 // Define array of min and max shift for each Employee
                 List<int> arrShiftForEachEmp = new List<int>();
-                int minShift = Convert.ToInt32(Math.Ceiling((decimal)(constrainstEmp.MinHour / AppConstants.ExamGroup.DURATION_HOUR_IN_EXAM_GROUP)));
+                int minShift = Convert.ToInt32(Math.Floor((decimal)(constrainstEmp.MinHour / AppConstants.ExamGroup.DURATION_HOUR_IN_EXAM_GROUP)));
                 int maxShift = Convert.ToInt32(Math.Ceiling((decimal)(constrainstEmp.MaxHour / AppConstants.ExamGroup.DURATION_HOUR_IN_EXAM_GROUP)));
 
                 arrShiftForEachEmp.Add(minShift);

@@ -122,21 +122,32 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                 });
             }
             //Get all list employee and set constraint
-            IEnumerable<Employee> listEmployee = await _uow.EmployeeRepository.Get(filter: el => el.RoleId != AppConstants.Roles.Admin.ID, includeProperties: "Department");
-            // define minHour and maxHour for each employee in Department
-            int minHour = minH / listEmployee.GroupBy(el => el.DepartmentId).Count() + 2;
-            int maxHour = maxH / listEmployee.GroupBy(el => el.DepartmentId).Count() + 2;
-            foreach (Employee dto in listEmployee)
+            IEnumerable<Employee> listEmployee = await _uow.EmployeeRepository
+                .Get(filter: el => el.RoleId != AppConstants.Roles.Admin.ID, includeProperties: "Department");
+
+            var listDepart = listEmployee.GroupBy(el => el.DepartmentId);
+
+            foreach(var item in listDepart)
             {
-                _uow.WorkingTimeRequiredEmployeeRepository.Add(new WorkingTimeRequiredEmployee()
+                // definal number of employee in department
+                int numEmp = item.Count();
+
+                // define minHour and maxHour for each employee in Department
+                int minHour =  Convert.ToInt32(Math.Floor((decimal) minH / numEmp));
+                int maxHour = Convert.ToInt32(Math.Ceiling((decimal)maxH / numEmp));
+
+                foreach (Employee dto in item)
                 {
-                    EmpId = dto.Id,
-                    ExamId = examId,
-                    MinHour = minHour,
-                    MaxHour = maxHour,
-                    CreateTime = DateTime.UtcNow,
-                    CreatePerson = empId.ToString(),
-                });
+                    _uow.WorkingTimeRequiredEmployeeRepository.Add(new WorkingTimeRequiredEmployee()
+                    {
+                        EmpId = dto.Id,
+                        ExamId = examId,
+                        MinHour = minHour,
+                        MaxHour = maxHour,
+                        CreateTime = DateTime.UtcNow,
+                        CreatePerson = empId.ToString(),
+                    });
+                }
             }
             return await _uow.SaveAsync() > 0;
         }
