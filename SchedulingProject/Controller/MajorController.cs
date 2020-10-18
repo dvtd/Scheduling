@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Scheduling.Bussiness.Cache;
 using Scheduling.Bussiness.Service.MajorService;
 using Scheduling.Data.Dtos;
 using Scheduling.Data.Dtos.Major;
+using Scheduling.Data.Helper;
 
 namespace SchedulingProject.Controller
 {
@@ -24,6 +27,7 @@ namespace SchedulingProject.Controller
 
         #region CRUD
         [HttpGet]
+        [Cached(600)]
         public async Task<IActionResult> Get([FromQuery] PagingRequestParam param)
         {
             var result = await _majorService.GetAsync(pageIndex: param.PageIndex, pageSize: param.PageSize);
@@ -46,6 +50,7 @@ namespace SchedulingProject.Controller
         }
 
         [HttpPost]
+        [CacheClearing]
         public async Task<IActionResult> Insert([FromBody] MajorDto dto)
         {
             var result = await _majorService.CreateAsync(dto);

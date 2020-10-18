@@ -66,6 +66,9 @@ namespace Scheduling.Data.AutoMapper
             CreateMap<WorkingTimeRequiredEmployee, WorkingTimeRequiredEmployeeDto>();
             CreateMap<WorkingTimeRequiredEmployeeDto, WorkingTimeRequiredEmployee>();
 
+            CreateMap<EmployeeDevice, DeviceDto>();
+            CreateMap<DeviceDto, EmployeeDevice>();
+
         }
     }
 }

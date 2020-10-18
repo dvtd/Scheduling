@@ -1,7 +1,5 @@
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.AssemblyInfoInputs.cache
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.AssemblyInfo.cs
-D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.csproj.CoreCompileInputs.cache
-D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cache
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.csprojAssemblyReference.cache
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\appsettings.json
@@ -179,4 +177,19 @@ D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\runtimes\osx-x
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libprotoc.3.12.2.0.dylib
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libprotoc.dylib
 D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\google-ortools-native.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Pipelines.Sockets.Unofficial.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\StackExchange.Redis.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Scrutor.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Filters.dll
+D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.csproj.CoreCompileInputs.cache
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cs
+D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cache

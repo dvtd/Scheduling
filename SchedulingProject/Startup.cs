@@ -16,7 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Scheduling.Bussiness.Cache;
 using Scheduling.Bussiness.Service.AuthService;
+using Scheduling.Bussiness.Service.Cache;
 using Scheduling.Bussiness.Service.CourseService;
 using Scheduling.Bussiness.Service.EmployeeRelatedService;
 using Scheduling.Bussiness.Service.EmployeeService;
@@ -95,6 +97,18 @@ namespace SchedulingProject
                         RequireExpirationTime = false
                     };
                 });
+            // config redis
+            var redisCacheSettings = new RedisCacheSettings();
+            Configuration.GetSection(nameof(RedisCacheSettings)).Bind(redisCacheSettings);
+            services.AddSingleton(redisCacheSettings);
+            if (redisCacheSettings.Enabled)
+            {
+                services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
+                services.AddSingleton<ICacheService, CacheService>();
+            }
+
+            // get config object
+            AppConfig.SetConfig(Configuration);
 
             // connect unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();

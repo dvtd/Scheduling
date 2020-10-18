@@ -1,4 +1,6 @@
-﻿using FirebaseAdmin.Messaging;
+﻿using AutoMapper;
+using FirebaseAdmin.Messaging;
+using Scheduling.Data.Dtos.Employee;
 using Scheduling.Data.Models;
 using Scheduling.Data.UnitOfWork;
 using System;
@@ -11,9 +13,11 @@ namespace Scheduling.Bussiness.Service.FCM
     public class FCMService : IFCMService
     {
         private readonly IUnitOfWork _uow;
-        public FCMService(IUnitOfWork uow)
+        private IMapper _mapper;
+        public FCMService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
+            _mapper = mapper;
         }
         public async Task<bool> CheckDevice(int empId, string deviceId)
         {
@@ -39,6 +43,33 @@ namespace Scheduling.Bussiness.Service.FCM
         public async Task SendMessage(int empId, string title, string body)
         {
             IEnumerable<EmployeeDevice> device = await _uow.DeviceRepository.Get(filter: el => el.EmpId == empId);
+            List<EmployeeDevice> list = new List<EmployeeDevice>(device);
+            List<Message> messages = new List<Message>();
+            if (list.Count > 0)
+            {
+                list.ForEach(device =>
+                {
+                    messages.Add(new Message()
+                    {
+                        Notification = new Notification()
+                        {
+                            Title = title,
+                            Body = body
+                        },
+                        Token = device.DeviceId
+                    });
+                });
+                await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+            }
+        }
+
+        public async Task SendMessageAll(IEnumerable<DeviceDto> deviceRequest,string title, string body)
+        {
+            if (deviceRequest == null)
+            {
+                throw new Exception("List Devices are null");
+            }
+            IEnumerable<EmployeeDevice> device = _mapper.Map<IEnumerable<EmployeeDevice>>(deviceRequest);
             List<EmployeeDevice> list = new List<EmployeeDevice>(device);
             List<Message> messages = new List<Message>();
             if (list.Count > 0)
