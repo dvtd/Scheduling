@@ -21,6 +21,7 @@ namespace Scheduling.Data.Models
         public DateTime? CreateTime { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? UpdateTime { get; set; }
+        public int? UpdateAdminId { get; set; }
 
         [ForeignKey(nameof(EmpId))]
         [InverseProperty(nameof(Employee.Register))]

@@ -14,8 +14,6 @@ namespace Scheduling.Data.Models
         public int? DepartmentId { get; set; }
         [Column("ExamID")]
         public int? ExamId { get; set; }
-        public TimeSpan? MinHour { get; set; }
-        public TimeSpan? MaxHour { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateTime { get; set; }
         [StringLength(255)]
@@ -24,6 +22,8 @@ namespace Scheduling.Data.Models
         public DateTime? UpdateTime { get; set; }
         [StringLength(255)]
         public string UpdatePerson { get; set; }
+        public int? MaxHour { get; set; }
+        public int? MinHour { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("WorkingTimeRequiredDepartment")]

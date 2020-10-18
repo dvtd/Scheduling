@@ -32,6 +32,7 @@ namespace Scheduling.Data.Models
         public DateTime? UpdateTime { get; set; }
         [StringLength(255)]
         public string UpdatePerson { get; set; }
+        public int? NumberOfStudents { get; set; }
 
         [ForeignKey(nameof(SemesterId))]
         [InverseProperty("Course")]

@@ -26,8 +26,6 @@ namespace Scheduling.Data.Models
         public DateTime? ExamEnd { get; set; }
         [StringLength(255)]
         public string Type { get; set; }
-        [StringLength(255)]
-        public string Status { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreateTime { get; set; }
         [StringLength(255)]
@@ -38,6 +36,7 @@ namespace Scheduling.Data.Models
         public string UpdatePerson { get; set; }
         [Column("SemesterID")]
         public int? SemesterId { get; set; }
+        public int? Status { get; set; }
 
         [ForeignKey(nameof(SemesterId))]
         [InverseProperty("Exam")]

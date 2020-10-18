@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scheduling.Data.Dtos.Role;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,5 +15,8 @@ namespace Scheduling.Data.Dtos.Employee
         public int? DepartmentId { get; set; }
         public string Description { get; set; }
         public int? RoleId { get; set; }
+        public int? DelFlg { get; set; }
+
+        public RoleDto Role { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Scheduling.Data.Dtos.Employee;
-using Scheduling.Data.Dtos.Semester.Course;
-using Scheduling.Data.Dtos.Semester.Exan;
+using Scheduling.Data.Dtos.Course;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Scheduling.Data.Dtos.Exam;
 
 namespace Scheduling.Data.Dtos.Semester
 {
@@ -16,9 +16,8 @@ namespace Scheduling.Data.Dtos.Semester
         public string Description { get; set; }
         public int? EmpId { get; set; }
 
-        //public  EmployeeDto? Emp { get; set; }
-        //public  List<CourseDto>? Course { get; set; }
-        //public List<ExamDto>? Exam { get; set; }
+        public virtual ICollection<ExamDto> Exam { get; set; }
+
 
     }
 }

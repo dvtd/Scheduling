@@ -18,10 +18,6 @@ namespace Scheduling.Data.Models
         public int Id { get; set; }
         [StringLength(255)]
         public string Name { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? ExamGroupBegin { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? ExamGroupEnd { get; set; }
         [Column("ExamID")]
         public int? ExamId { get; set; }
         [Column(TypeName = "datetime")]
@@ -32,6 +28,10 @@ namespace Scheduling.Data.Models
         public DateTime? UpdateTime { get; set; }
         [StringLength(255)]
         public string UpdatePerson { get; set; }
+        public TimeSpan TimeBegin { get; set; }
+        public TimeSpan TimeEnd { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? ExamDate { get; set; }
 
         [ForeignKey(nameof(ExamId))]
         [InverseProperty("ExamGroup")]

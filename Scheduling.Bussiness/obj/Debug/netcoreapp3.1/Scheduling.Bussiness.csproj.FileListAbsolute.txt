@@ -1,12 +1,12 @@
+D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.AssemblyInfoInputs.cache
+D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.AssemblyInfo.cs
+D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.csprojAssemblyReference.cache
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\bin\Debug\netcoreapp3.1\Scheduling.Bussiness.deps.json
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\bin\Debug\netcoreapp3.1\Scheduling.Bussiness.dll
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\bin\Debug\netcoreapp3.1\Scheduling.Bussiness.pdb
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\bin\Debug\netcoreapp3.1\Scheduling.Data.dll
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\bin\Debug\netcoreapp3.1\Scheduling.Data.pdb
-D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.csprojAssemblyReference.cache
-D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.AssemblyInfoInputs.cache
-D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.AssemblyInfo.cs
-D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.csproj.CoreCompileInputs.cache
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.csproj.CopyComplete
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.dll
 D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.pdb
+D:\SWD391\FPTScheduling\Scheduling.Bussiness\obj\Debug\netcoreapp3.1\Scheduling.Bussiness.csproj.CoreCompileInputs.cache

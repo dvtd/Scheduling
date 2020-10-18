@@ -32,6 +32,7 @@ namespace Scheduling.Data.Models
         public DateTime? UpdateTime { get; set; }
         [StringLength(255)]
         public string UpdatePerson { get; set; }
+        public int? Status { get; set; }
 
         [ForeignKey(nameof(ExamGroupId))]
         [InverseProperty("ExamSession")]
