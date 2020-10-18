@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Scheduling.Bussiness.Service.ExamCourseService;
@@ -9,6 +10,7 @@ using Scheduling.Bussiness.Service.ExamService;
 using Scheduling.Data.Dtos;
 using Scheduling.Data.Dtos.Course;
 using Scheduling.Data.Dtos.Exam;
+using Scheduling.Data.Helper;
 
 namespace SchedulingProject.Controller
 {

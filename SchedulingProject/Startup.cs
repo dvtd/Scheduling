@@ -16,11 +16,24 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Scheduling.Bussiness.Cache;
 using Scheduling.Bussiness.Service.AuthService;
+using Scheduling.Bussiness.Service.Cache;
+using Scheduling.Bussiness.Service.CourseService;
+using Scheduling.Bussiness.Service.EmployeeRelatedService;
+using Scheduling.Bussiness.Service.EmployeeService;
 using Scheduling.Bussiness.Service.ExamCourseService;
 using Scheduling.Bussiness.Service.ExamGroupService;
 using Scheduling.Bussiness.Service.ExamService;
+using Scheduling.Bussiness.Service.ExamSessionService;
+using Scheduling.Bussiness.Service.FCM;
+using Scheduling.Bussiness.Service.MajorService;
+using Scheduling.Bussiness.Service.RegisterExamService;
+using Scheduling.Bussiness.Service.RegisterService;
+using Scheduling.Bussiness.Service.SchedulingService;
 using Scheduling.Bussiness.Service.SemesterService;
+using Scheduling.Bussiness.Service.SubjectService;
+using Scheduling.Bussiness.Service.WorkingTimeRequiredEmployeeService;
 using Scheduling.Data.Helper;
 using Scheduling.Data.Models;
 using Scheduling.Data.UnitOfWork;
@@ -84,6 +97,18 @@ namespace SchedulingProject
                         RequireExpirationTime = false
                     };
                 });
+            // config redis
+            var redisCacheSettings = new RedisCacheSettings();
+            Configuration.GetSection(nameof(RedisCacheSettings)).Bind(redisCacheSettings);
+            services.AddSingleton(redisCacheSettings);
+            if (redisCacheSettings.Enabled)
+            {
+                services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
+                services.AddSingleton<ICacheService, CacheService>();
+            }
+
+            // get config object
+            AppConfig.SetConfig(Configuration);
 
             // connect unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -121,6 +146,18 @@ namespace SchedulingProject
             services.AddScoped<IExamCourseService, ExamCourseService>();
             services.AddScoped<IExamGroupService, ExamGroupService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IMajorService, MajorService>();
+            services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IEmployeeRelatedService, EmployeeRelatedService>();
+            services.AddScoped<IExamSessionService, ExamSessionService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IFCMService, FCMService>();
+            services.AddScoped<IRegisterExamService, RegisterExamService>();
+            services.AddScoped<ISchedulingService, SchedulingService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IWorkingTimeRequiredEmployeeService, WorkingTimeRequiredEmployeeService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

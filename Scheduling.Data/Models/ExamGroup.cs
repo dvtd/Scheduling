@@ -28,8 +28,8 @@ namespace Scheduling.Data.Models
         public DateTime? UpdateTime { get; set; }
         [StringLength(255)]
         public string UpdatePerson { get; set; }
-        public TimeSpan? TimeBegin { get; set; }
-        public TimeSpan? TimeEnd { get; set; }
+        public TimeSpan TimeBegin { get; set; }
+        public TimeSpan TimeEnd { get; set; }
         [Column(TypeName = "date")]
         public DateTime? ExamDate { get; set; }
 

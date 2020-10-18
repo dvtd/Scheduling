@@ -38,7 +38,7 @@ namespace Scheduling.Data.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              //  optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
+               // optionsBuilder.UseSqlServer("Server=SE130120;Database=Scheduling;Trusted_Connection=True;");
             }
         }
 
@@ -59,6 +59,8 @@ namespace Scheduling.Data.Models
 
             modelBuilder.Entity<Employee>(entity =>
             {
+                entity.Property(e => e.Photo).IsUnicode(false);
+
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Employee)
                     .HasForeignKey(d => d.DepartmentId)
