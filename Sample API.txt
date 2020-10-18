@@ -1,0 +1,37 @@
+/api/register-exam
+{
+   "examId":1,
+   "semesterId":1,
+   "employeeId":2,
+   "listSubjectInExam":[
+      {
+         "subjectId":1,
+         "examGroupId":1
+      },
+      {
+         "subjectId":2,
+         "examGroupId":1
+      },
+      {
+         "subjectId":3,
+         "examGroupId":2
+      },
+      {
+         "subjectId":4,
+         "examGroupId":3
+      },
+      {
+         "subjectId":5,
+         "examGroupId":4
+      },
+      {
+         "subjectId":6,
+         "examGroupId":5
+      }
+   ]
+}
+
+--------------------------------------
+
+
+
