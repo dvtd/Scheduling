@@ -1546,7 +1546,10 @@
         },
         "runtime": {
           "bin/placeholder/Scheduling.Bussiness.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Scheduling.Data/1.0.0": {
         "type": "project",
