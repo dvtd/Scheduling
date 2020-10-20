@@ -39,14 +39,41 @@ namespace Scheduling.Bussiness.Service.RegisterService
             return result;
         }
 
-        public async Task<bool> RegisterExamGroup(List<RegisterDto> listRegister)
+        public async Task<bool> RegisterExamGroup(List<RegisterDto> listRegisterRequest,int examId)
         {
-            if (listRegister != null)
+            if (listRegisterRequest != null)
             {
-                List<Register> listEntity = _mapper.Map<List<Register>>(listRegister);
-                foreach(Register dto in listEntity)
+                // Add ExamGroupId in List Register to Temp then Get List Exam Group In Session with ExamGroupID
+                var listExamGroupInRegisterRequest = listRegisterRequest.GroupBy(el => el.ExamGroupId);
+                List<int?> temp = new List<int?>();
+                foreach(var item in listExamGroupInRegisterRequest)
                 {
-                    _unitOfWork.RegisterRepository.Add(dto);
+                    temp.Add((int)item.Key);
+                }
+                // Get List Exam Group in Session
+                var listExamGroupInSession = (await _unitOfWork.ExamSessionRepository
+                    .Get(filter: el => el.ExamGroup.ExamId == examId && temp.Contains(el.ExamGroupId), includeProperties: "ExamGroup")).GroupBy(el => el.ExamGroupId);
+
+                foreach (var ex in listExamGroupInSession)
+                {
+                    // Get list register by exam group Id
+                    IEnumerable<Register> listRegister = (await _unitOfWork.RegisterRepository
+                                        .Get(filter: el => el.ExamGroupId == ex.Key));
+                    // If register has data
+                    if (listRegister != null || listRegister.Count() != 0)
+                    {
+                        // Check if number of examGroup in Session is bigger than in Register then insert to Result list
+                        if (ex.Count() <= listRegister.Count())
+                        {
+                            throw new Exception("Can not register");
+                        }
+                    }
+                }
+
+                List<Register> listEntity = _mapper.Map<List<Register>>(listRegisterRequest);
+                foreach(Register entity in listEntity)
+                {
+                    _unitOfWork.RegisterRepository.Add(entity);
                 }
             }
             return await _unitOfWork.SaveAsync() > 0;

@@ -21,15 +21,38 @@ namespace Scheduling.Bussiness.Service.ExamGroupService
 
         public async Task<IEnumerable<ExamGroup>> GetListExamGroupForRegistering(int examId)
         {
+            // Get List Exam Group in Session
             var listExamGroupInSession = (await _unitOfWork.ExamSessionRepository
                 .Get(filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup")).GroupBy(el => el.ExamGroupId);
+            
+            // Temp list to insert to result list
+            List<int> listR = new List<int>();
 
-            List<int> list = new List<int>();
-            foreach(var item in listExamGroupInSession)
+            // check if exam group is register full enough
+            foreach (var ex in listExamGroupInSession)
             {
-                list.Add((int)item.Key);
+                // Get list register by exam group Id
+                var listRegister = (await _unitOfWork.RegisterRepository
+                                    .Get(filter: el => el.ExamGroupId == ex.Key));
+                // If register has data
+                if (listRegister != null || listRegister.Count() != 0)
+                {
+                    // Check if number of examGroup in Session is smaller than in Register then insert to Result list
+                    int numSessionInExamGroup = ex.Count();
+                    int numSessionInRegister = listRegister.Count();
+
+                    if (numSessionInRegister < numSessionInExamGroup)
+                    {
+                        listR.Add((int)ex.Key);
+                    }
+                }
             }
-            return await _unitOfWork.ExamGroupRepository.Get(filter: el => el.ExamId == examId && list.Contains(el.Id));
+
+            IEnumerable<ExamGroup> result = await _unitOfWork.ExamGroupRepository.Get(filter: el => el.ExamId == examId && listR.Contains(el.Id));
+           
+            return result;
         }
+
+        
     }
 }
