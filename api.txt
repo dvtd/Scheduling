@@ -1,0 +1,45 @@
+/api/v1/exam-group/employee-register-group
+-> Get exam group for register (lấy ca thi)
+ExamID  = 1	
+
+
+/api/v1/register/{examId}/employee/register-exam-group
+-> Đăng kí exam group của từng employee
+[
+  {
+    "createTime": "2020-10-22T14:34:24.122Z",
+    "updateTime": "2020-10-22T14:34:24.122Z",
+    "empId": 1,
+    "examGroupId": 1,
+    "value": 1,
+    "description": "string"
+},
+{
+    "createTime": "2020-10-22T14:34:24.122Z",
+    "updateTime": "2020-10-22T14:34:24.122Z",
+    "empId": 1,
+    "examGroupId": 2,
+    "value": 2,
+    "description": "string"
+},
+{
+    "createTime": "2020-10-22T14:34:24.122Z",
+    "updateTime": "2020-10-22T14:34:24.122Z",
+    "empId": 1,
+    "examGroupId": 3,
+    "value": 1,
+    "description": "string"
+}
+]
+
+/api/v1/register/{examId}/{employeeId}/list-register
+-> Get List Emp sau khi đăng kí thành công.
+(Trước khi admin xếp lịch thì có thể edit)
+
+Request body:
+{
+  "empId": 1,
+  "examId": 1
+}
+
+

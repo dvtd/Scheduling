@@ -24,7 +24,7 @@ namespace Scheduling.Bussiness.Service.ExamGroupService
             // Get List Exam Group in Session
             var listExamGroupInSession = (await _unitOfWork.ExamSessionRepository
                 .Get(filter: el => el.ExamGroup.ExamId == examId, includeProperties: "ExamGroup")).GroupBy(el => el.ExamGroupId);
-            
+
             // Temp list to insert to result list
             List<int> listR = new List<int>();
 
@@ -46,13 +46,17 @@ namespace Scheduling.Bussiness.Service.ExamGroupService
                         listR.Add((int)ex.Key);
                     }
                 }
+                else
+                {
+                    listR.Add((int)ex.Key);
+                }
             }
 
             IEnumerable<ExamGroup> result = await _unitOfWork.ExamGroupRepository.Get(filter: el => el.ExamId == examId && listR.Contains(el.Id));
-           
+
             return result;
         }
 
-        
+
     }
 }

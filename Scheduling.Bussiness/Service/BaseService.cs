@@ -66,7 +66,6 @@ namespace Scheduling.Bussiness.Service
 
         public Task<IEnumerable<TEntity>> GetAsync(int pageIndex = 0, int pageSize = 0, Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaâ");
             return _reponsitory.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
         }
     }
