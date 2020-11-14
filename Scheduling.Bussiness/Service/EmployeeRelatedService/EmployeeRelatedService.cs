@@ -26,7 +26,7 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
         public async Task<EmployeeInExamSessionDto> GetDetailSessionOfEmployeeInExam([Required] int empId, [Required] int examId)
         {
             EmployeeInExamSessionDto result = null;
-            IEnumerable<EmployeeRelated> allDetails = await _uow.EmployeeRelatedRepository.Get(filter: el => el.EmpId == empId, includeProperties: "ExamSession.Room,ExamSession.ExamGroup");
+            IEnumerable<EmployeeRelated> allDetails = await _uow.EmployeeRelatedRepository.Get(filter: el => el.EmpId == empId, includeProperties: "ExamSession.Room,ExamSession.ExamGroup,ExamSession.Subject");
             IEnumerable<EmployeeRelated> details = (from el in allDetails where el.ExamSession.ExamGroup.ExamId == examId select el).ToList();
             if (details != null)
             {
