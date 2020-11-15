@@ -33,7 +33,7 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
                 IEnumerable<EmployeeRelatedDto> detailsDto = _mapper.Map<IEnumerable<EmployeeRelatedDto>>(details);
                 result = new EmployeeInExamSessionDto();
                 result.EmpId = empId;
-                foreach(EmployeeRelatedDto dto in detailsDto)
+                foreach (EmployeeRelatedDto dto in detailsDto)
                 {
                     result.ListExamSession.Add(dto.ExamSession);
                 }
@@ -41,5 +41,10 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
             return result;
         }
 
+        public async Task<IEnumerable<EmployeeRelatedDto>> GetAllEmployeeRelated(int examId)
+        {
+            IEnumerable<EmployeeRelated> list = await _uow.EmployeeRelatedRepository.Get(includeProperties: "ExamSession.ExamGroup,Employee");
+            return _mapper.Map<IEnumerable<EmployeeRelatedDto>>(from el in list where el.ExamSession.ExamGroup.ExamId == examId select el).ToList();
+        }
     }
 }

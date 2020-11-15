@@ -43,23 +43,26 @@ namespace Scheduling.Bussiness.Service.FCM
         public async Task SendMessage(int empId, string title, string body)
         {
             IEnumerable<EmployeeDevice> device = await _uow.DeviceRepository.Get(filter: el => el.EmpId == empId);
-            List<EmployeeDevice> list = new List<EmployeeDevice>(device);
-            List<Message> messages = new List<Message>();
-            if (list.Count > 0)
+            if (device != null)
             {
-                list.ForEach(device =>
+                List<EmployeeDevice> list = new List<EmployeeDevice>(device);
+                List<Message> messages = new List<Message>();
+                if (list.Count > 0)
                 {
-                    messages.Add(new Message()
+                    list.ForEach(device =>
                     {
-                        Notification = new Notification()
+                        messages.Add(new Message()
                         {
-                            Title = title,
-                            Body = body
-                        },
-                        Token = device.DeviceId
+                            Notification = new Notification()
+                            {
+                                Title = title,
+                                Body = body
+                            },
+                            Token = device.DeviceId
+                        });
                     });
-                });
-                await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+                    await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+                }
             }
         }
 

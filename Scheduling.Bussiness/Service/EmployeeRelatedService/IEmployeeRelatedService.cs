@@ -12,5 +12,7 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
     public interface IEmployeeRelatedService 
     {
         public Task<EmployeeInExamSessionDto> GetDetailSessionOfEmployeeInExam([Required]int empId, [Required] int examId);
+
+        public Task<IEnumerable<EmployeeRelatedDto>> GetAllEmployeeRelated(int examId);
     }
 }

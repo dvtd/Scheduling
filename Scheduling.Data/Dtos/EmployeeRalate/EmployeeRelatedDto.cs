@@ -1,4 +1,5 @@
-﻿using Scheduling.Data.Dtos.ExamSession;
+﻿using Scheduling.Data.Dtos.Employee;
+using Scheduling.Data.Dtos.ExamSession;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,8 @@ namespace Scheduling.Data.Dtos.EmployeeRalate
         public string Status { get; set; }
         public int? Type { get; set; }
         public virtual ExamSessionDto ExamSession { get; set; }
+        public virtual EmployeeDto Emp { get; set; }
+
     }
 }
 
