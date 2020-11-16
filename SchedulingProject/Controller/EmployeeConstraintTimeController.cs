@@ -20,7 +20,7 @@ namespace SchedulingProject.Controller
             _workingTimeRequiredEmployeeService = workingTimeRequiredEmployeeService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Get(EmployeeConstraintRequestParam param)
         {
             var result = await _workingTimeRequiredEmployeeService.GetAsync(filter: el => el.ExamId == param.ExamId && el.EmpId == param.EmpId);

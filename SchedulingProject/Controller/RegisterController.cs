@@ -65,10 +65,10 @@ namespace SchedulingProject.Controller
         }
         #endregion
 
-        [HttpPost("employee")]
-        public async Task<IActionResult> GetListRegister([FromBody] RegisterDto dto)
+        [HttpGet("{examId}/{employeeId}/list-register")]
+        public async Task<IActionResult> GetListRegister([FromRoute] int examId, [FromRoute] int employeeId)
         {
-            var result = await _registerService.GetListRegisterByEmployee(dto);
+            var result = await _registerService.GetListRegisterByEmployee(examId, employeeId);
             if (result == null)
             {
                 return NotFound();
@@ -76,11 +76,19 @@ namespace SchedulingProject.Controller
             return Ok(result);
         }
 
-        [HttpPost("employee/register-exam-group")]
-        public async Task<IActionResult> RegisterExamGroup([FromBody] List<RegisterDto> listRegister)
+        [HttpPost("{examId}/employee/register-exam-group")]
+        public async Task<IActionResult> RegisterExamGroup([FromBody] List<RegisterDto> listRegister, [FromRoute] int examId)
         {
-            var result = await _registerService.RegisterExamGroup(listRegister);
-            return Ok(result);
+            try
+            {
+                var result = await _registerService.RegisterExamGroup(listRegister, examId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
     }
 }

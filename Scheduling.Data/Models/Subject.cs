@@ -10,6 +10,7 @@ namespace Scheduling.Data.Models
         public Subject()
         {
             Course = new HashSet<Course>();
+            ExamSession = new HashSet<ExamSession>();
         }
 
         [Key]
@@ -35,5 +36,7 @@ namespace Scheduling.Data.Models
         public virtual Major Major { get; set; }
         [InverseProperty("Subject")]
         public virtual ICollection<Course> Course { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<ExamSession> ExamSession { get; set; }
     }
 }

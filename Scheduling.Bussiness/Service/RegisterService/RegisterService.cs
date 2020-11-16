@@ -20,38 +20,54 @@ namespace Scheduling.Bussiness.Service.RegisterService
 
         protected override IGenericRepository<Register> _reponsitory => _unitOfWork.RegisterRepository;
 
-        public async Task<RegisterDto> GetListRegisterByEmployee(RegisterDto dto)
+        public async Task<IEnumerable<RegisterDto>> GetListRegisterByEmployee(int examId, int empId)
         {
-            RegisterDto result = dto;
-            IEnumerable<Register> listRegister = await _unitOfWork.RegisterRepository.Get(
-                filter: el => el.EmpId == result.EmpId && el.ExamGroup.ExamId == result.ExamId, includeProperties: "ExamGroup");
-            var listExamGroup = listRegister
-                .GroupBy(el => el.EmpId)
-                .OrderBy(el => el.OrderBy(e => e.ExamGroup.ExamDate)
-                                  .ThenBy(e => e.ExamGroup.TimeBegin));
-            foreach(var group in listExamGroup)
-            {
-                foreach(Register reg in group)
-                {
-                    result.ListExamGroup.Add(_mapper.Map<ExamGroupDto>(reg.ExamGroup));
-                }
-            }
-            return result;
+            IEnumerable<Register> result = await _unitOfWork.RegisterRepository.Get(
+                filter: el => el.EmpId == empId && el.ExamGroup.ExamId == examId, 
+                includeProperties: "ExamGroup",
+                orderBy: el => el.OrderBy(e => e.ExamGroup.ExamDate).ThenBy(e => e.ExamGroup.TimeBegin));
+            return _mapper.Map<IEnumerable<RegisterDto>>(result);
         }
 
-        public async Task<bool> RegisterExamGroup(List<RegisterDto> listRegister)
+
+        public async Task<bool> RegisterExamGroup(List<RegisterDto> listRegisterRequest, int examId)
         {
-            if (listRegister != null)
+            if (listRegisterRequest != null)
             {
-                List<Register> listEntity = _mapper.Map<List<Register>>(listRegister);
-                foreach(Register dto in listEntity)
+                // Add ExamGroupId in List Register to Temp then Get List Exam Group In Session with ExamGroupID
+                var listExamGroupInRegisterRequest = listRegisterRequest.GroupBy(el => el.ExamGroupId);
+                List<int?> temp = new List<int?>();
+                foreach (var item in listExamGroupInRegisterRequest)
                 {
-                    _unitOfWork.RegisterRepository.Add(dto);
+                    temp.Add((int)item.Key);
+                }
+                // Get List Exam Group in Session
+                var listExamGroupInSession = (await _unitOfWork.ExamSessionRepository
+                    .Get(filter: el => el.ExamGroup.ExamId == examId && temp.Contains(el.ExamGroupId), includeProperties: "ExamGroup")).GroupBy(el => el.ExamGroupId);
+
+                foreach (var ex in listExamGroupInSession)
+                {
+                    // Get list register by exam group Id
+                    IEnumerable<Register> listRegister = (await _unitOfWork.RegisterRepository
+                                        .Get(filter: el => el.ExamGroupId == ex.Key));
+                    // If register has data
+                    if (listRegister.Count() != 0)
+                    {
+                        // Check if number of examGroup in Session is bigger than in Register then insert to Result list
+                        if (ex.Count() <= listRegister.Count())
+                        {
+                            throw new Exception("Can not register");
+                        }
+                    }
+                }
+
+                List<Register> listEntity = _mapper.Map<List<Register>>(listRegisterRequest);
+                foreach (Register entity in listEntity)
+                {
+                    _unitOfWork.RegisterRepository.Add(entity);
                 }
             }
             return await _unitOfWork.SaveAsync() > 0;
         }
-
-
     }
 }

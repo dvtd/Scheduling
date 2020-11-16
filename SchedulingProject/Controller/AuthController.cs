@@ -54,7 +54,14 @@ namespace SchedulingProject.Controller
                                                         signingCredentials: creds);
                     return Ok(new
                     {
-                        token = new JwtSecurityTokenHandler().WriteToken(token)
+                        Id = emp.Id,
+                        Username = emp.Username,
+                        Fullname = emp.Fullname,
+                        Phone = emp.Phone,
+                        Email = emp.Email,
+                        RoleNm = emp.Role.Role1,
+                        DelFlg = emp.DelFlg,
+                        Token = new JwtSecurityTokenHandler().WriteToken(token)
                     });
                 }
                 else

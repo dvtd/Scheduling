@@ -10,8 +10,8 @@ namespace Scheduling.Bussiness.Service.RegisterService
 {
    public interface IRegisterService : IBaseService<Register, RegisterDto>
     {
-        public Task<bool> RegisterExamGroup(List<RegisterDto> listRegister);
+        public Task<bool> RegisterExamGroup(List<RegisterDto> listRegister,int examId);
 
-        public Task<RegisterDto> GetListRegisterByEmployee(RegisterDto dto);
+        public Task<IEnumerable<RegisterDto>> GetListRegisterByEmployee(int examId, int empId);
     }
 }

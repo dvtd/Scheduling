@@ -82,6 +82,7 @@ namespace Scheduling.Bussiness.Service.RegisterExamService
                         RoomId = listValidRoom.ElementAt(i).Id,
                         RoomName = listValidRoom.ElementAt(i).RoomName,
                         ExamGroupId = subjectInExam.ExamGroupId,
+                        SubjectId = subjectInExam.SubjectId,
                         CreateTime = DateTime.UtcNow,
                         CreatePerson = empId.ToString(),
                         Status = AppConstants.ExamSession.Status.OPENED

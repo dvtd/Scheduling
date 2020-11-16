@@ -33,6 +33,7 @@ namespace Scheduling.Data.Models
         [StringLength(255)]
         public string UpdatePerson { get; set; }
         public int? Status { get; set; }
+        public int? SubjectId { get; set; }
 
         [ForeignKey(nameof(ExamGroupId))]
         [InverseProperty("ExamSession")]
@@ -40,6 +41,9 @@ namespace Scheduling.Data.Models
         [ForeignKey(nameof(RoomId))]
         [InverseProperty("ExamSession")]
         public virtual Room Room { get; set; }
+        [ForeignKey(nameof(SubjectId))]
+        [InverseProperty("ExamSession")]
+        public virtual Subject Subject { get; set; }
         [InverseProperty("ExamSession")]
         public virtual ICollection<EmployeeRelated> EmployeeRelated { get; set; }
         [InverseProperty("ExamSession")]

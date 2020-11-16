@@ -26,14 +26,14 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
         public async Task<EmployeeInExamSessionDto> GetDetailSessionOfEmployeeInExam([Required] int empId, [Required] int examId)
         {
             EmployeeInExamSessionDto result = null;
-            IEnumerable<EmployeeRelated> allDetails = await _uow.EmployeeRelatedRepository.Get(filter: el => el.EmpId == empId, includeProperties: "ExamSession.Room,ExamSession.ExamGroup");
+            IEnumerable<EmployeeRelated> allDetails = await _uow.EmployeeRelatedRepository.Get(filter: el => el.EmpId == empId, includeProperties: "ExamSession.Room,ExamSession.ExamGroup,ExamSession.Subject");
             IEnumerable<EmployeeRelated> details = (from el in allDetails where el.ExamSession.ExamGroup.ExamId == examId select el).ToList();
             if (details != null)
             {
                 IEnumerable<EmployeeRelatedDto> detailsDto = _mapper.Map<IEnumerable<EmployeeRelatedDto>>(details);
                 result = new EmployeeInExamSessionDto();
                 result.EmpId = empId;
-                foreach(EmployeeRelatedDto dto in detailsDto)
+                foreach (EmployeeRelatedDto dto in detailsDto)
                 {
                     result.ListExamSession.Add(dto.ExamSession);
                 }
@@ -41,5 +41,10 @@ namespace Scheduling.Bussiness.Service.EmployeeRelatedService
             return result;
         }
 
+        public async Task<IEnumerable<EmployeeRelatedDto>> GetAllEmployeeRelated(int examId)
+        {
+            IEnumerable<EmployeeRelated> list = await _uow.EmployeeRelatedRepository.Get(includeProperties: "ExamSession.ExamGroup,Employee");
+            return _mapper.Map<IEnumerable<EmployeeRelatedDto>>(from el in list where el.ExamSession.ExamGroup.ExamId == examId select el).ToList();
+        }
     }
 }

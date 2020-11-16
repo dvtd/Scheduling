@@ -1,4 +1,5 @@
 ﻿using Scheduling.Data.Dtos.ExamGroup;
+using Scheduling.Data.Dtos.Major.Subject;
 using Scheduling.Data.Dtos.Room;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace Scheduling.Data.Dtos.ExamSession
         public DateTime? UpdateTime { get; set; }
         public string UpdatePerson { get; set; }
         public int? Status { get; set; }
+        public int? SubjectId { get; set; }
+
+        public virtual SubjectDto Subject { get; set; }
 
         public virtual ExamGroupDto ExamGroup { get; set; }
         public virtual RoomDto Room { get; set; }
