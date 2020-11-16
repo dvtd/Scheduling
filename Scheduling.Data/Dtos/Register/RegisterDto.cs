@@ -14,6 +14,8 @@ namespace Scheduling.Data.Dtos.Register
         public int? EmpId { get; set; }
         public int? ExamGroupId { get; set; }
         public int? Value { get; set; }
+        public int? Status { get; set; }
+
         public string Description { get; set; }
         public int? UpdateAdminId { get; set; }
 
