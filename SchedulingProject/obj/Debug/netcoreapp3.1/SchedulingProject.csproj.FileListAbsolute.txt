@@ -193,3 +193,4 @@ D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Swashbuckle.As
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.csproj.CoreCompileInputs.cache
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cs
 D:\SWD391\FPTScheduling\SchedulingProject\obj\Debug\netcoreapp3.1\SchedulingProject.MvcApplicationPartsAssemblyInfo.cache
+D:\SWD391\FPTScheduling\SchedulingProject\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\scheduling-employee-app - Web Deploy\profile.arm.json

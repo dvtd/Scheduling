@@ -2,6 +2,7 @@
 using Scheduling.Data.Dtos.ExamGroup;
 using Scheduling.Data.Dtos.Register;
 using Scheduling.Data.Models;
+using Scheduling.Data.Helper;
 using Scheduling.Data.Repository;
 using Scheduling.Data.UnitOfWork;
 using System;
@@ -23,7 +24,7 @@ namespace Scheduling.Bussiness.Service.RegisterService
         public async Task<IEnumerable<RegisterDto>> GetListRegisterByEmployee(int examId, int empId)
         {
             IEnumerable<Register> result = await _unitOfWork.RegisterRepository.Get(
-                filter: el => el.EmpId == empId && el.ExamGroup.ExamId == examId, 
+                filter: el => el.EmpId == empId && el.ExamGroup.ExamId == examId && el.Status != AppConstants.Register.APPROVED,
                 includeProperties: "ExamGroup",
                 orderBy: el => el.OrderBy(e => e.ExamGroup.ExamDate).ThenBy(e => e.ExamGroup.TimeBegin));
             return _mapper.Map<IEnumerable<RegisterDto>>(result);
@@ -34,6 +35,12 @@ namespace Scheduling.Bussiness.Service.RegisterService
         {
             if (listRegisterRequest != null)
             {
+                // set status all list request to PENDING const
+                foreach (var el in listRegisterRequest)
+                {
+                    el.Status = AppConstants.Register.PENDING;
+                }
+
                 // Add ExamGroupId in List Register to Temp then Get List Exam Group In Session with ExamGroupID
                 var listExamGroupInRegisterRequest = listRegisterRequest.GroupBy(el => el.ExamGroupId);
                 List<int?> temp = new List<int?>();

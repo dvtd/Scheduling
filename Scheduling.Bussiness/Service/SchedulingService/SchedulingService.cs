@@ -188,6 +188,16 @@ namespace Scheduling.Bussiness.Service.SchedulingService
                         }
                     }
                 }
+
+                // Update status of register table
+                IEnumerable<Register> listRegis = await _uow.RegisterRepository.Get(
+                    filter: el => el.ExamGroup.ExamId == examId,
+                    includeProperties: "ExamGroup");
+                foreach (var el in listRegis)
+                {
+                    el.Status = AppConstants.Register.APPROVED;
+                    _uow.RegisterRepository.Update(el);
+                }
             }
             else
             {

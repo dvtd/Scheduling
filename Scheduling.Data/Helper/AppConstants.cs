@@ -84,5 +84,11 @@ namespace Scheduling.Data.Helper
         {
             public const int DURATION_HOUR_IN_EXAM_GROUP = 1;
         }
+
+        public struct Register
+        {
+            public const int APPROVED = 1;
+            public const int PENDING = 0;
+        }
     }
 }
