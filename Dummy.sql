@@ -12,11 +12,15 @@ Delete from EmployeeRelated
 Delete from ExamSession
 Delete from Register
 
+select count(*) from ExamGroup EG join ExamSession ES on EG.ID = ES.ExamGroupID group by EG.ID
+
+select count(*) from ExamGroup EG join Register RG on EG.ID = RG.ExamGroupID group by EG.ID
+select * from ExamSession
 
 Delete from Employee
 Delete from Exam
 
-
+select * from EmployeeDevice
 insert into Employee(Username,Fullname,Phone,Email,Description,DepartmentID,RoleID,CreateTime,DelFlg)
 values ('test18','test18' , '011111111' , 'test@fpt.edu.vn', 'ABC', '6' , '2', GETDATE(),0 ),
 	('test19','test19' , '011111111' , 'test@fpt.edu.vn', 'ABC', '6' , '2', GETDATE(),0 ),
@@ -48,8 +52,8 @@ values ('A-111','ABC',0),
 delete from Register
 insert into Register(EmpID,ExamGroupID,Value,CreateTime,Status) 
 values 
-(1,1,1,GETDATE(),0),
-(1,2,2,GETDATE(),0),
+(2,1,1,GETDATE(),0),
+(2,2,2,GETDATE(),0),
 (5,1,1,GETDATE(),0),
 (5,2,2,GETDATE(),0),
 (6,1,1,GETDATE(),0),

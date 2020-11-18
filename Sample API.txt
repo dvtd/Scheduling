@@ -2,7 +2,7 @@
 {
    "examId":1,
    "semesterId":1,
-   "employeeId":2,
+   "employeeId":1,
    "listSubjectInExam":[
       {
          "subjectId":1,
